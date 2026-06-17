@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<!--
+    Exchange offer list page.
+
+    This page displays all exchange offers where the current user
+    is either the sender or the receiver.
+-->
+
+<h2>My Exchange Offers</h2>
+
+{% if exchange_offers %}
+
+<ul>
+    {% for offer in exchange_offers %}
+        <li>
+            <a href="/exchanges/{{ offer.id }}/">
+                Exchange #{{ offer.id }}
+            </a>
+
+            - {{ offer.sender }} to {{ offer.receiver }}
+            - Status: {{ offer.status }}
+        </li>
+    {% endfor %}
+</ul>
+
+{% else %}
+
+<p>No exchange offers yet.</p>
+
+{% endif %}
+
+<p>
+    <a href="/exchanges/create/">Create Exchange Offer</a>
+</p>
+
+{% endblock %}
+
+<!-- END OF FILE -->
