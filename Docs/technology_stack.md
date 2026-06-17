@@ -244,3 +244,9 @@ Prima versiune trebuie sa fie simpla.
 Obiectivul nu este construirea unei platforme perfecte de la inceput.
 
 Obiectivul este construirea unei platforme functionale care permite persoanelor fizice sa isi creeze conturi, sa publice produse sau servicii, sa caute oferte locale si sa propuna schimburi directe.
+
+Principiul fundamental:
+
+Mai intai functional, apoi complex.
+Mai intai comunitate, apoi tehnologie.
+Mai intai utilitate, apoi optimizare.
