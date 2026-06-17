@@ -3,7 +3,10 @@ from django.db import models
 
 class Message(models.Model):
     """
-    Stores messages exchanged between users.
+    Stores messages exchanged between users inside an exchange offer.
+
+    Messages are connected to an ExchangeOffer, not directly to individual items.
+    This allows communication for simple and complex exchanges.
     """
 
     exchange_offer = models.ForeignKey(
@@ -30,9 +33,4 @@ class Message(models.Model):
     read_at = models.DateTimeField(blank=True, null=True)
 
     def __str__(self):
-        return (
-            f"Message from "
-            f"{self.sender} "
-            f"to "
-            f"{self.receiver}"
-        )
+        return f"Message from {self.sender} to {self.receiver}"
