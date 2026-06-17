@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<!--
+    Item detail page.
+
+    This page displays full information about one item.
+    From here, a logged-in user can start an exchange proposal.
+-->
+
+<h2>{{ item.title }}</h2>
+
+<p><strong>Description:</strong></p>
+<p>{{ item.description }}</p>
+
+<p><strong>Category:</strong> {{ item.category }}</p>
+<p><strong>Troc value:</strong> {{ item.troc_value }}</p>
+
+<p><strong>Location:</strong>
+    {{ item.city }}
+    {% if item.region %}, {{ item.region }}{% endif %}
+    , {{ item.country }}
+</p>
+
+{% if item.local_area %}
+<p><strong>Local area:</strong> {{ item.local_area }}</p>
+{% endif %}
+
+<p><strong>Status:</strong> {{ item.status }}</p>
+
+<!-- Display item photos if photos exist. -->
+{% if item.photos.all %}
+    <h3>Photos</h3>
+
+    {% for photo in item.photos.all %}
+        <img src="{{ photo.image.url }}" alt="{{ item.title }}" style="max-width: 300px;">
+    {% endfor %}
+{% endif %}
+
+<hr>
+
+<!-- Exchange action. -->
+<p>
+    <a href="/exchanges/create/">Propose Exchange</a>
+</p>
+
+<p>
+    <a href="/items/">Back to Items</a>
+</p>
+
+{% endblock %}
+
+<!-- END OF FILE -->
