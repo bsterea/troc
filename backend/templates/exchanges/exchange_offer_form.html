@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<!--
+    Exchange offer creation page.
+
+    This page creates the main exchange offer.
+    Items are added separately after the offer is created.
+-->
+
+<h2>Create Exchange Offer</h2>
+
+<form method="post">
+    {% csrf_token %}
+
+    <!-- Render the exchange offer form fields. -->
+    {{ form.as_p }}
+
+    <button type="submit">Create Offer</button>
+</form>
+
+<p>
+    <a href="/exchanges/">Back to Exchanges</a>
+</p>
+
+{% endblock %}
+
+<!-- END OF FILE -->
