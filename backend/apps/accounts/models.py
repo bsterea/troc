@@ -1,18 +1,14 @@
+from django.contrib.auth.models import AbstractUser
 from django.db import models
 
 
-class UserProfile(models.Model):
+class UserProfile(AbstractUser):
     """
-    Stores the public and personal profile data for a Troc user.
+    Custom Troc user model.
 
-    The phone number is the primary contact identifier, but it is not public.
+    Phone number is the main login identifier.
     Email is optional.
-
-    Location is designed to be international:
-    - country: Romania, Denmark, Kenya, New Zealand
-    - region: county, state, province, island, administrative area
-    - city: city, town, village
-    - local_area: optional local detail such as district, commune, neighborhood
+    Username is not used.
     """
 
     ACCOUNT_STATUS_ACTIVE = "active"
@@ -25,11 +21,10 @@ class UserProfile(models.Model):
         (ACCOUNT_STATUS_DELETED, "Deleted"),
     ]
 
+    username = None
+
     phone_number = models.CharField(max_length=30, unique=True)
     email = models.EmailField(blank=True, null=True)
-
-    first_name = models.CharField(max_length=100)
-    last_name = models.CharField(max_length=100)
 
     country = models.CharField(max_length=100)
     region = models.CharField(max_length=100, blank=True)
@@ -43,10 +38,12 @@ class UserProfile(models.Model):
     )
 
     is_phone_public = models.BooleanField(default=False)
+    preferred_language = models.CharField(max_length=10, default="en")
 
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
     deleted_at = models.DateTimeField(blank=True, null=True)
+
+    USERNAME_FIELD = "phone_number"
+    REQUIRED_FIELDS = []
 
     def __str__(self):
         location_parts = [self.city, self.region, self.country]
