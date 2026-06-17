@@ -1,6 +1,6 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.views.generic import CreateView, DeleteView, DetailView, ListView, UpdateView
 from django.urls import reverse_lazy
+from django.views.generic import CreateView, DeleteView, DetailView, ListView, UpdateView
 
 from .models import Item
 
@@ -15,7 +15,13 @@ class ItemListView(ListView):
     context_object_name = "items"
 
     def get_queryset(self):
-        return Item.objects.filter(status=Item.STATUS_AVAILABLE).order_by("-created_at")
+        """
+        Return only available items, newest first.
+        """
+
+        return Item.objects.filter(
+            status=Item.STATUS_AVAILABLE
+        ).order_by("-created_at")
 
 
 class ItemDetailView(DetailView):
@@ -48,6 +54,10 @@ class ItemCreateView(LoginRequiredMixin, CreateView):
     success_url = reverse_lazy("items:list")
 
     def form_valid(self, form):
+        """
+        Assign the logged-in user as item owner before saving.
+        """
+
         form.instance.owner = self.request.user
         return super().form_valid(form)
 
@@ -72,6 +82,13 @@ class ItemUpdateView(LoginRequiredMixin, UpdateView):
     template_name = "items/item_form.html"
     success_url = reverse_lazy("items:list")
 
+    def get_queryset(self):
+        """
+        Restrict item editing to the logged-in owner.
+        """
+
+        return Item.objects.filter(owner=self.request.user)
+
 
 class ItemDeleteView(LoginRequiredMixin, DeleteView):
     """
@@ -81,3 +98,13 @@ class ItemDeleteView(LoginRequiredMixin, DeleteView):
     model = Item
     template_name = "items/item_confirm_delete.html"
     success_url = reverse_lazy("items:list")
+
+    def get_queryset(self):
+        """
+        Restrict item deletion to the logged-in owner.
+        """
+
+        return Item.objects.filter(owner=self.request.user)
+
+
+# END OF FILE
