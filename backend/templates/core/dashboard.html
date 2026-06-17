@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<!--
+    User dashboard page.
+
+    This page is displayed after login.
+    It gives the user quick access to the main Troc actions.
+-->
+
+<h2>Dashboard</h2>
+
+<p>
+    Welcome, {{ user.first_name }}.
+</p>
+
+<ul>
+    <li><a href="/items/">Browse Items</a></li>
+    <li><a href="/items/create/">Create New Item</a></li>
+    <li><a href="/exchanges/">My Exchange Offers</a></li>
+    <li><a href="/messages/">My Messages</a></li>
+    <li><a href="/notifications/">My Notifications</a></li>
+    <li><a href="/accounts/profile/">My Profile</a></li>
+</ul>
+
+{% endblock %}
+
+<!-- END OF FILE -->
