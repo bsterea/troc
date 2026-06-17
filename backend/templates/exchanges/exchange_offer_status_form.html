@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<!--
+    Exchange offer status update page.
+
+    This page allows the status of an exchange offer to be updated.
+    MVP statuses include:
+    - pending
+    - accepted
+    - rejected
+    - cancelled
+    - completed
+-->
+
+<h2>Update Exchange Status</h2>
+
+<p>
+    Exchange Offer #{{ exchangeoffer.id }}
+</p>
+
+<form method="post">
+    {% csrf_token %}
+
+    <!-- Render the status update form fields. -->
+    {{ form.as_p }}
+
+    <button type="submit">Update Status</button>
+</form>
+
+<p>
+    <a href="/exchanges/">Back to Exchanges</a>
+</p>
+
+{% endblock %}
+
+<!-- END OF FILE -->
