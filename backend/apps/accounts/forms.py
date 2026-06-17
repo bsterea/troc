@@ -6,9 +6,6 @@ from .models import UserProfile
 class UserRegistrationForm(forms.ModelForm):
     """
     Form used to register a new Troc user.
-
-    Phone number is required.
-    Email is optional.
     """
 
     password = forms.CharField(
@@ -32,15 +29,12 @@ class UserRegistrationForm(forms.ModelForm):
             "region",
             "city",
             "local_area",
+            "preferred_language",
             "password",
             "confirm_password",
         ]
 
     def clean(self):
-        """
-        Validate that password and confirm_password are identical.
-        """
-
         cleaned_data = super().clean()
         password = cleaned_data.get("password")
         confirm_password = cleaned_data.get("confirm_password")
@@ -49,3 +43,12 @@ class UserRegistrationForm(forms.ModelForm):
             raise forms.ValidationError("Passwords do not match.")
 
         return cleaned_data
+
+    def save(self, commit=True):
+        user = super().save(commit=False)
+        user.set_password(self.cleaned_data["password"])
+
+        if commit:
+            user.save()
+
+        return user
