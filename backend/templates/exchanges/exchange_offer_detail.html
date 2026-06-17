@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<!--
+    Exchange offer detail page.
+
+    This page displays one exchange offer with all included items:
+    - items offered by the sender
+    - items requested from the receiver
+-->
+
+<h2>Exchange Offer #{{ exchange_offer.id }}</h2>
+
+<p><strong>Sender:</strong> {{ exchange_offer.sender }}</p>
+<p><strong>Receiver:</strong> {{ exchange_offer.receiver }}</p>
+<p><strong>Status:</strong> {{ exchange_offer.status }}</p>
+
+{% if exchange_offer.message %}
+<p><strong>Message:</strong></p>
+<p>{{ exchange_offer.message }}</p>
+{% endif %}
+
+<hr>
+
+<h3>Offered Items</h3>
+
+<ul>
+    {% for exchange_item in exchange_offer.exchange_items.all %}
+        {% if exchange_item.side == "offered" %}
+            <li>{{ exchange_item.item.title }} - {{ exchange_item.item.troc_value }} Troc</li>
+        {% endif %}
+    {% endfor %}
+</ul>
+
+<h3>Requested Items</h3>
+
+<ul>
+    {% for exchange_item in exchange_offer.exchange_items.all %}
+        {% if exchange_item.side == "requested" %}
+            <li>{{ exchange_item.item.title }} - {{ exchange_item.item.troc_value }} Troc</li>
+        {% endif %}
+    {% endfor %}
+</ul>
+
+<hr>
+
+<p>
+    <a href="/exchanges/items/add/">Add Item to Exchange</a>
+</p>
+
+<p>
+    <a href="/exchanges/{{ exchange_offer.id }}/status/">Update Status</a>
+</p>
+
+<p>
+    <a href="/exchanges/">Back to Exchanges</a>
+</p>
+
+{% endblock %}
+
+<!-- END OF FILE -->
