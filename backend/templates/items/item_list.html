@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<!--
+    Displays all available items.
+-->
+
+<h2>Available Items</h2>
+
+{% if items %}
+
+<ul>
+    {% for item in items %}
+        <li>
+            <a href="/items/{{ item.id }}/">
+                {{ item.title }}
+            </a>
+
+            - {{ item.city }}, {{ item.country }}
+
+            - Troc Value: {{ item.troc_value }}
+        </li>
+    {% endfor %}
+</ul>
+
+{% else %}
+
+<p>No items available.</p>
+
+{% endif %}
+
+<p>
+    <a href="/items/create/">Create New Item</a>
+</p>
+
+{% endblock %}
+
+<!-- END OF FILE -->
