@@ -1,6 +1,7 @@
 from django.contrib.auth import login, logout
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.views import LoginView
-from django.shortcuts import redirect, render
+from django.shortcuts import redirect
 from django.urls import reverse_lazy
 from django.views.generic import CreateView, TemplateView, UpdateView
 
@@ -49,7 +50,7 @@ def user_logout_view(request):
     return redirect("accounts:login")
 
 
-class UserProfileView(TemplateView):
+class UserProfileView(LoginRequiredMixin, TemplateView):
     """
     Displays the logged-in user's profile.
     """
@@ -57,7 +58,7 @@ class UserProfileView(TemplateView):
     template_name = "accounts/profile.html"
 
 
-class UserProfileUpdateView(UpdateView):
+class UserProfileUpdateView(LoginRequiredMixin, UpdateView):
     """
     Allows the logged-in user to update their profile.
     """
@@ -83,3 +84,6 @@ class UserProfileUpdateView(UpdateView):
         """
 
         return self.request.user
+
+
+# END OF FILE
