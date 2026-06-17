@@ -7,6 +7,12 @@ class UserProfile(models.Model):
 
     The phone number is the primary contact identifier, but it is not public.
     Email is optional.
+
+    Location is designed to be international:
+    - country: Romania, Denmark, Kenya, New Zealand
+    - region: county, state, province, island, administrative area
+    - city: city, town, village
+    - local_area: optional local detail such as district, commune, neighborhood
     """
 
     ACCOUNT_STATUS_ACTIVE = "active"
@@ -25,8 +31,10 @@ class UserProfile(models.Model):
     first_name = models.CharField(max_length=100)
     last_name = models.CharField(max_length=100)
 
-    county = models.CharField(max_length=100)
+    country = models.CharField(max_length=100)
+    region = models.CharField(max_length=100, blank=True)
     city = models.CharField(max_length=100)
+    local_area = models.CharField(max_length=100, blank=True)
 
     account_status = models.CharField(
         max_length=20,
@@ -41,4 +49,6 @@ class UserProfile(models.Model):
     deleted_at = models.DateTimeField(blank=True, null=True)
 
     def __str__(self):
-        return f"{self.first_name} {self.last_name} - {self.city}"
+        location_parts = [self.city, self.region, self.country]
+        location = ", ".join([part for part in location_parts if part])
+        return f"{self.first_name} {self.last_name} - {location}"
