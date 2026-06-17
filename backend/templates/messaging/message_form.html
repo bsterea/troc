@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<!--
+    Message creation page.
+
+    This page allows a logged-in user to send
+    a message related to an exchange offer.
+-->
+
+<h2>Send Message</h2>
+
+<form method="post">
+    {% csrf_token %}
+
+    <!-- Render the Django message form fields. -->
+    {{ form.as_p }}
+
+    <button type="submit">Send Message</button>
+</form>
+
+<p>
+    <a href="/messages/">Back to Messages</a>
+</p>
+
+{% endblock %}
+
+<!-- END OF FILE -->
