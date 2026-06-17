@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<!--
+    User login page.
+
+    This page allows existing users to authenticate
+    using their phone number and password.
+-->
+
+<h2>Login</h2>
+
+<form method="post">
+    {% csrf_token %}
+
+    <!-- Render the Django login form fields. -->
+    {{ form.as_p }}
+
+    <button type="submit">Login</button>
+</form>
+
+<p>
+    Don't have an account?
+    <a href="/accounts/register/">Create one here</a>
+</p>
+
+{% endblock %}
+
+<!-- END OF FILE -->
