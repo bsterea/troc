@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<!--
+    Message list page.
+
+    This page displays messages received by the logged-in user.
+-->
+
+<h2>My Messages</h2>
+
+{% if messages %}
+
+<ul>
+    {% for message in messages %}
+        <li>
+            <strong>From:</strong> {{ message.sender }}
+            <br>
+            <strong>Exchange:</strong> #{{ message.exchange_offer.id }}
+            <br>
+            <strong>Message:</strong> {{ message.content }}
+            <br>
+            <strong>Sent:</strong> {{ message.created_at }}
+        </li>
+    {% endfor %}
+</ul>
+
+{% else %}
+
+<p>No messages yet.</p>
+
+{% endif %}
+
+<p>
+    <a href="/messages/send/">Send Message</a>
+</p>
+
+{% endblock %}
+
+<!-- END OF FILE -->
