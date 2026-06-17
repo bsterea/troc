@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<!--
+    User profile page.
+
+    This page displays the main account and location information
+    for the currently logged-in user.
+-->
+
+<h2>My Profile</h2>
+
+<p><strong>Phone:</strong> {{ user.phone_number }}</p>
+
+{% if user.email %}
+<p><strong>Email:</strong> {{ user.email }}</p>
+{% endif %}
+
+<p><strong>First name:</strong> {{ user.first_name }}</p>
+<p><strong>Last name:</strong> {{ user.last_name }}</p>
+
+<p><strong>Country:</strong> {{ user.country }}</p>
+
+{% if user.region %}
+<p><strong>Region:</strong> {{ user.region }}</p>
+{% endif %}
+
+<p><strong>City:</strong> {{ user.city }}</p>
+
+{% if user.local_area %}
+<p><strong>Local area:</strong> {{ user.local_area }}</p>
+{% endif %}
+
+<p><strong>Preferred language:</strong> {{ user.preferred_language }}</p>
+<p><strong>Phone public:</strong> {{ user.is_phone_public }}</p>
+
+<p>
+    <a href="/accounts/profile/edit/">Edit Profile</a>
+</p>
+
+<p>
+    <a href="/accounts/logout/">Logout</a>
+</p>
+
+{% endblock %}
+
+<!-- END OF FILE -->
