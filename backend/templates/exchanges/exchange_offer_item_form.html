@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<!--
+    Exchange offer item form.
+
+    This page allows a user to add an item to an exchange offer.
+
+    Each item must be assigned to one side:
+    - offered
+    - requested
+-->
+
+<h2>Add Item to Exchange</h2>
+
+<form method="post">
+    {% csrf_token %}
+
+    <!-- Render the exchange offer item form fields. -->
+    {{ form.as_p }}
+
+    <button type="submit">Add Item</button>
+</form>
+
+<p>
+    <a href="/exchanges/">Back to Exchanges</a>
+</p>
+
+{% endblock %}
+
+<!-- END OF FILE -->
