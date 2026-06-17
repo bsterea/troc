@@ -18,6 +18,12 @@ class Category(models.Model):
 class Item(models.Model):
     """
     Stores goods or services published by users for direct exchange.
+
+    Location is designed to be international:
+    - country: Romania, Denmark, Kenya, New Zealand
+    - region: county, state, province, island, administrative area
+    - city: city, town, village
+    - local_area: optional local detail such as district, commune, neighborhood
     """
 
     STATUS_AVAILABLE = "available"
@@ -49,8 +55,10 @@ class Item(models.Model):
 
     troc_value = models.PositiveIntegerField()
 
-    county = models.CharField(max_length=100)
+    country = models.CharField(max_length=100)
+    region = models.CharField(max_length=100, blank=True)
     city = models.CharField(max_length=100)
+    local_area = models.CharField(max_length=100, blank=True)
 
     status = models.CharField(
         max_length=20,
@@ -63,7 +71,9 @@ class Item(models.Model):
     deleted_at = models.DateTimeField(blank=True, null=True)
 
     def __str__(self):
-        return self.title
+        location_parts = [self.city, self.region, self.country]
+        location = ", ".join([part for part in location_parts if part])
+        return f"{self.title} - {location}"
 
 
 class ItemPhoto(models.Model):
