@@ -92,3 +92,29 @@ class ItemPhoto(models.Model):
 
     def __str__(self):
         return f"Photo for {self.item.title}"
+
+
+class Favorite(models.Model):
+    """
+    Stores items saved by users for later review.
+    """
+
+    user = models.ForeignKey(
+        "accounts.UserProfile",
+        on_delete=models.CASCADE,
+        related_name="favorites",
+    )
+
+    item = models.ForeignKey(
+        Item,
+        on_delete=models.CASCADE,
+        related_name="favorited_by",
+    )
+
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        unique_together = ("user", "item")
+
+    def __str__(self):
+        return f"{self.user} -> {self.item}"
