@@ -1,6 +1,8 @@
 from django.contrib.auth.models import AbstractUser
 from django.db import models
 
+from .managers import UserProfileManager
+
 
 class UserProfile(AbstractUser):
     """
@@ -45,7 +47,12 @@ class UserProfile(AbstractUser):
     USERNAME_FIELD = "phone_number"
     REQUIRED_FIELDS = []
 
+    objects = UserProfileManager()
+
     def __str__(self):
         location_parts = [self.city, self.region, self.country]
         location = ", ".join([part for part in location_parts if part])
         return f"{self.first_name} {self.last_name} - {location}"
+
+
+# END OF FILE
