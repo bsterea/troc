@@ -1,47 +1,16 @@
 from django.contrib import admin
 
-from .models import UserProfile
+from .models import (
+    Category,
+    Item,
+    ItemPhoto,
+    Favorite,
+)
 
 
-@admin.register(UserProfile)
-class UserProfileAdmin(admin.ModelAdmin):
-    """
-    Admin configuration for Troc user profiles.
-    """
+admin.site.register(Category)
+admin.site.register(Item)
+admin.site.register(ItemPhoto)
+admin.site.register(Favorite)
 
-    list_display = (
-        "id",
-        "phone_number",
-        "email",
-        "first_name",
-        "last_name",
-        "country",
-        "region",
-        "city",
-        "account_status",
-        "created_at",
-    )
-
-    list_filter = (
-        "account_status",
-        "country",
-        "region",
-        "city",
-        "created_at",
-    )
-
-    search_fields = (
-        "phone_number",
-        "email",
-        "first_name",
-        "last_name",
-        "country",
-        "region",
-        "city",
-    )
-
-    readonly_fields = (
-        "created_at",
-        "updated_at",
-        "deleted_at",
-    )
+# END OF FILE
