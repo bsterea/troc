@@ -19,7 +19,7 @@ class UserProfileAdmin(admin.ModelAdmin):
         "region",
         "city",
         "account_status",
-        "created_at",
+        "date_joined",
     )
 
     list_filter = (
@@ -27,7 +27,7 @@ class UserProfileAdmin(admin.ModelAdmin):
         "country",
         "region",
         "city",
-        "created_at",
+        "date_joined",
     )
 
     search_fields = (
@@ -41,7 +41,10 @@ class UserProfileAdmin(admin.ModelAdmin):
     )
 
     readonly_fields = (
-        "created_at",
-        "updated_at",
+        "date_joined",
+        "last_login",
         "deleted_at",
     )
+
+
+# END OF FILE
