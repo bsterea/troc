@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<!--
+    User registration page.
+
+    This page allows a new user to create a Troc account
+    using phone number, password and basic location data.
+-->
+
+<h2>Create Account</h2>
+
+<form method="post">
+    {% csrf_token %}
+
+    {{ form.as_p }}
+
+    <button type="submit">Create Account</button>
+</form>
+
+<p>
+    Already have an account?
+    <a href="/accounts/login/">Login here</a>
+</p>
+
+{% endblock %}
+
+<!-- END OF FILE -->
