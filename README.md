@@ -82,6 +82,30 @@ Current foundation:
 - basic templates
 - working local server
 
+
+## Why I Started Troc
+
+I am not building Troc to become rich.
+
+I am not building Troc to become famous.
+
+I am not building Troc to create another corporation.
+
+My goal is to help people cooperate directly, exchange goods, services, knowledge and energy, and strengthen local communities.
+
+Troc started as my vision, but I do not believe one person has all the answers.
+
+Anyone who joins early can help shape the future of the project.
+
+I am looking for builders, not followers.
+
+If you have better ideas, bring them.
+If you find mistakes, challenge them.
+If you want to help create something useful for ordinary people, you are welcome.
+
+The final form of Troc should be the result of many minds working together.
+  
+
 ## Founder
 
 Bogdan Daniel Sterea  
