@@ -1,4 +1,4 @@
-TROC
+ TROC
 
 Transform Surplus Into Freedom
 
