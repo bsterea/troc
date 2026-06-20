@@ -3,13 +3,12 @@
 {% block content %}
 
 <!--
-    Item form page.
+    Item create/edit form.
 
-    This page allows a logged-in user to create or edit an item
-    and optionally upload one photo.
+    Supports optional photo upload.
 -->
 
-<h2>Item Form</h2>
+<h2>Create / Edit Item</h2>
 
 <form method="post" enctype="multipart/form-data">
     {% csrf_token %}
@@ -17,15 +16,27 @@
     {{ form.as_p }}
 
     <p>
-        <label for="id_photo">Photo</label><br>
-        <input type="file" name="photo" id="id_photo" accept="image/*">
+        <label for="photo">
+            Item Photo
+        </label>
+        <br>
+        <input
+            type="file"
+            name="photo"
+            id="photo"
+            accept="image/*"
+        >
     </p>
 
-    <button type="submit">Save Item</button>
+    <button type="submit">
+        Save Item
+    </button>
 </form>
 
 <p>
-    <a href="/items/">Back to Items</a>
+    <a href="/items/">
+        Back to Items
+    </a>
 </p>
 
 {% endblock %}
