@@ -2,7 +2,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
 from django.views.generic import CreateView, DeleteView, DetailView, ListView, UpdateView
 
-from .models import Item
+from .models import Item, ItemPhoto
 
 
 class ItemListView(ListView):
@@ -55,11 +55,20 @@ class ItemCreateView(LoginRequiredMixin, CreateView):
 
     def form_valid(self, form):
         """
-        Assign the logged-in user as item owner before saving.
+        Assign the logged-in user as item owner and save uploaded photo.
         """
 
         form.instance.owner = self.request.user
-        return super().form_valid(form)
+        response = super().form_valid(form)
+
+        uploaded_photo = self.request.FILES.get("photo")
+        if uploaded_photo:
+            ItemPhoto.objects.create(
+                item=self.object,
+                image=uploaded_photo,
+            )
+
+        return response
 
 
 class ItemUpdateView(LoginRequiredMixin, UpdateView):
@@ -88,6 +97,22 @@ class ItemUpdateView(LoginRequiredMixin, UpdateView):
         """
 
         return Item.objects.filter(owner=self.request.user)
+
+    def form_valid(self, form):
+        """
+        Save item changes and optionally attach one new uploaded photo.
+        """
+
+        response = super().form_valid(form)
+
+        uploaded_photo = self.request.FILES.get("photo")
+        if uploaded_photo:
+            ItemPhoto.objects.create(
+                item=self.object,
+                image=uploaded_photo,
+            )
+
+        return response
 
 
 class ItemDeleteView(LoginRequiredMixin, DeleteView):
