@@ -3,51 +3,26 @@
 {% block content %}
 
 <!--
-    Item detail page.
+    Item form page.
 
-    This page displays full information about one item.
-    From here, a logged-in user can start an exchange proposal.
+    This page allows a logged-in user to create or edit an item
+    and optionally upload one photo.
 -->
 
-<h2>{{ item.title }}</h2>
+<h2>Item Form</h2>
 
-<p><strong>Description:</strong></p>
-<p>{{ item.description }}</p>
+<form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
 
-<p><strong>Category:</strong> {{ item.category }}</p>
-<p><strong>Troc value:</strong> {{ item.troc_value }}</p>
+    {{ form.as_p }}
 
-<p><strong>Location:</strong>
-    {{ item.city }}
-    {% if item.region %}, {{ item.region }}{% endif %}
-    , {{ item.country }}
-</p>
+    <p>
+        <label for="id_photo">Photo</label><br>
+        <input type="file" name="photo" id="id_photo" accept="image/*">
+    </p>
 
-{% if item.local_area %}
-<p><strong>Local area:</strong> {{ item.local_area }}</p>
-{% endif %}
-
-<p><strong>Status:</strong> {{ item.status }}</p>
-
-<!-- Display item photos if photos exist. -->
-{% if item.photos.all %}
-    <h3>Photos</h3>
-
-    {% for photo in item.photos.all %}
-        <img
-            src="{{ photo.image.url }}"
-            alt="{{ item.title }}"
-            style="max-width: 300px;"
-        >
-    {% endfor %}
-{% endif %}
-
-<hr>
-
-<!-- Exchange action. -->
-<p>
-    <a href="/exchanges/create/">Propose Exchange</a>
-</p>
+    <button type="submit">Save Item</button>
+</form>
 
 <p>
     <a href="/items/">Back to Items</a>
